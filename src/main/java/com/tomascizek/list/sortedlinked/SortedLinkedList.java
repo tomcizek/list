@@ -57,10 +57,19 @@ public class SortedLinkedList<T extends Comparable<T>> {
 
   @Override
   public String toString() {
-    if (this.firstItem == null) {
-      return "[]";
+    StringBuilder result = new StringBuilder("[");
+    var current = this.firstItem;
+
+    while (current != null) {
+      result.append(current.data);
+      current = current.next;
+      if (current != null) {
+        result.append(", ");
+      }
     }
-    return "[" + this.firstItem + "]";
+
+    result.append("]");
+    return result.toString();
   }
 
   public void remove(T valueToDelete) {
@@ -156,9 +165,6 @@ public class SortedLinkedList<T extends Comparable<T>> {
 
     @Override
     public String toString() {
-      if (this.next != null) {
-        return this.data.toString() + ", " + this.next.toString();
-      }
       return this.data.toString();
     }
   }
