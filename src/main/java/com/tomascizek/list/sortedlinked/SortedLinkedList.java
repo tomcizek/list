@@ -116,6 +116,30 @@ public class SortedLinkedList<T extends Comparable<T>> {
     return this.indexOf(searchedValue) != -1;
   }
 
+  public void removeIndex(int indexToDelete) {
+    if (indexToDelete < 0 || indexToDelete >= this.size) {
+      throw InvalidItemValueException.becauseIndexDoesNotExist(indexToDelete);
+    }
+
+    var currentItem = this.firstItem;
+    ListItem<T> previousItem = null;
+    int currentIndex = 0;
+
+    while (currentIndex != indexToDelete) {
+      previousItem = currentItem;
+      currentItem = currentItem.next;
+      currentIndex++;
+    }
+
+    if (previousItem == null) {
+      this.firstItem = currentItem.next;
+    } else {
+      previousItem.next = currentItem.next;
+    }
+
+    this.size--;
+  }
+
   private class ListItem<T extends Comparable<T>> implements Comparable<ListItem<T>> {
     T data;
     ListItem<T> next;
