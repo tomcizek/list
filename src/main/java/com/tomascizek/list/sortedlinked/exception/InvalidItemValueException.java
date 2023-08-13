@@ -26,4 +26,12 @@ public class InvalidItemValueException extends RuntimeException {
             "You probably want to filter out nulls from your data or fix some bug."
     );
   }
+
+  public static InvalidItemValueException becauseContainsItemValueIsNull() {
+    return new InvalidItemValueException(
+        "You are trying to check whether SortedLinkedList contains null value, " +
+            "which it can never contain." +
+            "You probably want to filter out nulls from your data or fix some bug."
+    );
+  }
 }

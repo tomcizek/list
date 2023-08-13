@@ -109,6 +109,13 @@ public class SortedLinkedList<T extends Comparable<T>> {
     return index;
   }
 
+  public boolean contains(T searchedValue) {
+    if (searchedValue == null) {
+      throw InvalidItemValueException.becauseContainsItemValueIsNull();
+    }
+    return this.indexOf(searchedValue) != -1;
+  }
+
   private class ListItem<T extends Comparable<T>> implements Comparable<ListItem<T>> {
     T data;
     ListItem<T> next;
