@@ -4,7 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 import com.tomascizek.list.sortedlinked.SortedLinkedList;
-import com.tomascizek.list.sortedlinked.exception.InvalidItemValueException;
+import com.tomascizek.list.sortedlinked.exception.SortedListIndexException;
+import com.tomascizek.list.sortedlinked.exception.SortedListItemValueException;
 import java.util.List;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
@@ -29,8 +30,8 @@ public class SortedLinkedListTest {
   public void itShouldNOtAllowNullValues() {
     SortedLinkedList<String> list = new SortedLinkedList<>();
     ThrowingRunnable runnableInsert = () -> list.insert(null);
-    InvalidItemValueException exception = assertThrows(
-        InvalidItemValueException.class,
+    var exception = assertThrows(
+        SortedListItemValueException.class,
         runnableInsert
     );
     assertEquals(
@@ -121,8 +122,8 @@ public class SortedLinkedListTest {
         10, 20, 30
     );
     ThrowingRunnable runnableRemove = () -> list.remove(null);
-    InvalidItemValueException exception = assertThrows(
-        InvalidItemValueException.class,
+    var exception = assertThrows(
+        SortedListItemValueException.class,
         runnableRemove
     );
     assertEquals(
@@ -190,8 +191,8 @@ public class SortedLinkedListTest {
         10, 20, 30
     );
     ThrowingRunnable runnableIndexOf = () -> list.indexOf(null);
-    InvalidItemValueException exception = assertThrows(
-        InvalidItemValueException.class,
+    var exception = assertThrows(
+        SortedListItemValueException.class,
         runnableIndexOf
     );
     assertEquals(
@@ -243,8 +244,8 @@ public class SortedLinkedListTest {
         10, 20, 30
     );
     ThrowingRunnable runnableContains = () -> list.contains(null);
-    InvalidItemValueException exception = assertThrows(
-        InvalidItemValueException.class,
+    var exception = assertThrows(
+        SortedListItemValueException.class,
         runnableContains
     );
     assertEquals(
@@ -343,13 +344,13 @@ public class SortedLinkedListTest {
   }
 
   @Test
-  public void itShouldThrowErrorWhenRemovingByNonExistingIndex() {
+  public void itShouldNotAllowRemovingByNonExistingIndex() {
     SortedLinkedList<Integer> list = new SortedLinkedList<>(
         10, 20, 30
     );
     ThrowingRunnable runnableRemove = () -> list.removeIndex(3);
-    InvalidItemValueException exception = assertThrows(
-        InvalidItemValueException.class,
+    var exception = assertThrows(
+        SortedListIndexException.class,
         runnableRemove
     );
     assertEquals(
@@ -360,13 +361,13 @@ public class SortedLinkedListTest {
   }
 
   @Test
-  public void itShouldThrowErrorWhenRemovingByInvalidIndex() {
+  public void itShouldNotAllowRemovingByInvalidIndex() {
     SortedLinkedList<Integer> list = new SortedLinkedList<>(
         10, 20, 30
     );
     ThrowingRunnable runnableRemove = () -> list.removeIndex(-1);
-    InvalidItemValueException exception = assertThrows(
-        InvalidItemValueException.class,
+    var exception = assertThrows(
+        SortedListIndexException.class,
         runnableRemove
     );
     assertEquals(

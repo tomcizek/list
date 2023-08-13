@@ -1,6 +1,7 @@
 package com.tomascizek.list.sortedlinked;
 
-import com.tomascizek.list.sortedlinked.exception.InvalidItemValueException;
+import com.tomascizek.list.sortedlinked.exception.SortedListIndexException;
+import com.tomascizek.list.sortedlinked.exception.SortedListItemValueException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
   public void insert(T itemValue) {
 
     if (itemValue == null) {
-      throw InvalidItemValueException.becauseItemValueIsNull();
+      throw SortedListItemValueException.becauseItemValueIsNull();
     }
     
     this.size++;
@@ -74,7 +75,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
 
   public void remove(T valueToDelete) {
     if (valueToDelete == null) {
-      throw InvalidItemValueException.becauseRemovingItemValueIsNull();
+      throw SortedListItemValueException.becauseRemovingItemValueIsNull();
     }
 
     var currentItem = this.firstItem;
@@ -100,7 +101,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
 
   public int indexOf(T searchedValue) {
     if (searchedValue == null) {
-      throw InvalidItemValueException.becauseSearchItemValueIsNull();
+      throw SortedListItemValueException.becauseSearchItemValueIsNull();
     }
 
     var currentItem = this.firstItem;
@@ -120,14 +121,14 @@ public class SortedLinkedList<T extends Comparable<T>> {
 
   public boolean contains(T searchedValue) {
     if (searchedValue == null) {
-      throw InvalidItemValueException.becauseContainsItemValueIsNull();
+      throw SortedListItemValueException.becauseContainsItemValueIsNull();
     }
     return this.indexOf(searchedValue) != -1;
   }
 
   public void removeIndex(int indexToDelete) {
     if (indexToDelete < 0 || indexToDelete >= this.size) {
-      throw InvalidItemValueException.becauseIndexDoesNotExist(indexToDelete);
+      throw SortedListIndexException.becauseIndexDoesNotExist(indexToDelete);
     }
 
     var currentItem = this.firstItem;
