@@ -29,11 +29,14 @@ public class SortedLinkedListTest {
   public void itShouldNOtAllowNullValues() {
     SortedLinkedList<String> list = new SortedLinkedList<>();
     ThrowingRunnable runnableInsert = () -> list.insert(null);
-    assertThrows(
-        "Item inserted into SortedLinkedList was null. " +
-            "You probably want to filter out nulls from your data or fix some bug.",
+    InvalidItemValueException exception = assertThrows(
         InvalidItemValueException.class,
         runnableInsert
+    );
+    assertEquals(
+        "Item inserted into SortedLinkedList was null. " +
+            "You probably want to filter out nulls from your data or fix some bug.",
+        exception.getMessage()
     );
   }
 
@@ -118,11 +121,14 @@ public class SortedLinkedListTest {
         10, 20, 30
     );
     ThrowingRunnable runnableRemove = () -> list.remove(null);
-    assertThrows(
-        "You are trying to remove null value from SortedLinkedList, which it cannot contain." +
-            "You probably want to filter out nulls from your data or fix some bug.",
+    InvalidItemValueException exception = assertThrows(
         InvalidItemValueException.class,
         runnableRemove
+    );
+    assertEquals(
+        "You are trying to remove null value from SortedLinkedList, which it cannot contain." +
+            "You probably want to filter out nulls from your data or fix some bug.",
+        exception.getMessage()
     );
   }
 
@@ -183,12 +189,15 @@ public class SortedLinkedListTest {
     SortedLinkedList<Integer> list = new SortedLinkedList<>(
         10, 20, 30
     );
-    ThrowingRunnable runnableRemove = () -> list.indexOf(null);
-    assertThrows(
+    ThrowingRunnable runnableIndexOf = () -> list.indexOf(null);
+    InvalidItemValueException exception = assertThrows(
+        InvalidItemValueException.class,
+        runnableIndexOf
+    );
+    assertEquals(
         "You are trying to search null value in SortedLinkedList, which it cannot contain." +
             "You probably want to filter out nulls from your data or fix some bug.",
-        InvalidItemValueException.class,
-        runnableRemove
+        exception.getMessage()
     );
   }
 
@@ -227,5 +236,72 @@ public class SortedLinkedListTest {
         actualIndex
     );
   }
+
+  @Test
+  public void itShouldNotAllowCheckingContainsByNullValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    ThrowingRunnable runnableContains = () -> list.contains(null);
+    InvalidItemValueException exception = assertThrows(
+        InvalidItemValueException.class,
+        runnableContains
+    );
+    assertEquals(
+        "You are trying to check whether SortedLinkedList contains null value, " +
+            "which it can never contain." +
+            "You probably want to filter out nulls from your data or fix some bug.",
+        exception.getMessage()
+    );
+  }
+
+  @Test
+  public void itCanCheckIfContainsFirstValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    var actualContains = list.contains(10);
+    assertEquals(
+        true,
+        actualContains
+    );
+  }
+
+  @Test
+  public void itCanCheckIfContainsMiddleValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    var actualContains = list.contains(20);
+    assertEquals(
+        true,
+        actualContains
+    );
+  }
+
+  @Test
+  public void itCanCheckIfContainsLastValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    var actualContains = list.contains(30);
+    assertEquals(
+        true,
+        actualContains
+    );
+  }
+
+  @Test
+  public void itCanCheckIfContainsNotExistingValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    var actualContains = list.contains(40);
+    assertEquals(
+        false,
+        actualContains
+    );
+  }
+
 
 }
