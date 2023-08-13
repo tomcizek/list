@@ -354,8 +354,8 @@ public class SortedLinkedListTest {
         runnableRemove
     );
     assertEquals(
-        "You are trying to remove element at non existing index '3'." +
-            "You probably want to use contains(...) method before you attempt to delete the item.",
+        "You are trying to remove item at non existing index '3'. Available index range: 0-2\n" +
+            "You probably want to use contains(...) method before you attempt to remove the item.",
         exception.getMessage()
     );
   }
@@ -371,8 +371,46 @@ public class SortedLinkedListTest {
         runnableRemove
     );
     assertEquals(
-        "You are trying to remove element at non existing index '-1'." +
-            "You probably want to use contains(...) method before you attempt to delete the item.",
+        "You are trying to remove item at non existing index '-1'. Available index range: 0-2\n" +
+            "You probably want to use contains(...) method before you attempt to remove the item.",
+        exception.getMessage()
+    );
+  }
+
+  @Test
+  public void itCanGetValueByIndex() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(10, 20, 30);
+    assertEquals((Integer) 10, list.get(0));
+    assertEquals((Integer) 20, list.get(1));
+    assertEquals((Integer) 30, list.get(2));
+  }
+
+  @Test
+  public void itShouldNotAllowGettingByNegativeIndex() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(10, 20, 30);
+    ThrowingRunnable runnableGet = () -> list.get(-1);
+    var exception = assertThrows(
+        SortedListIndexException.class,
+        runnableGet
+    );
+    assertEquals(
+        "You are trying to get item at non existing index '-1'. Available index range: 0-2\n" +
+            "You probably want to use contains(...) method before you attempt to get the item.",
+        exception.getMessage()
+    );
+  }
+
+  @Test
+  public void itShouldNotAllowGettingByOutOfBoundsIndex() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(10, 20, 30);
+    ThrowingRunnable runnableGet = () -> list.get(3);
+    var exception = assertThrows(
+        SortedListIndexException.class,
+        runnableGet
+    );
+    assertEquals(
+        "You are trying to get item at non existing index '3'. Available index range: 0-2\n" +
+            "You probably want to use contains(...) method before you attempt to get the item.",
         exception.getMessage()
     );
   }
