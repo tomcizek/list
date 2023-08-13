@@ -1,11 +1,25 @@
 package com.tomascizek.list.sortedlinked;
 
 import com.tomascizek.list.sortedlinked.exception.InvalidItemValueException;
+import java.util.Arrays;
+import java.util.List;
 
 public class SortedLinkedList<T extends Comparable<T>> {
 
   private ListItem firstItem = null;
   private int size = 0;
+
+  public SortedLinkedList() {
+  }
+
+  public SortedLinkedList(List<T> itemValues) {
+    itemValues.forEach(this::insert);
+  }
+
+  public SortedLinkedList(T... itemValues) {
+    Arrays.stream(itemValues).forEach(this::insert);
+  }
+
 
   public int size() {
     return this.size;
