@@ -12,4 +12,11 @@ public class SortedLinkedListTest {
     SortedLinkedList<String> list = new SortedLinkedList<>();
     assertEquals(0, list.size());
   }
+
+  @Test
+  public void itCanInsertSingleElement() {
+    SortedLinkedList<String> list = new SortedLinkedList<>();
+    list.insert("apple");
+    assertEquals(1, list.size());
+  }
 }
