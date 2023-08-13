@@ -30,6 +30,8 @@ public class SortedLinkedListTest {
     SortedLinkedList<String> list = new SortedLinkedList<>();
     ThrowingRunnable runnableInsert = () -> list.insert(null);
     assertThrows(
+        "Item inserted into SortedLinkedList was null. " +
+            "You probably want to filter out nulls from your data or fix some bug.",
         InvalidItemValueException.class,
         runnableInsert
     );
@@ -117,6 +119,8 @@ public class SortedLinkedListTest {
     );
     ThrowingRunnable runnableRemove = () -> list.remove(null);
     assertThrows(
+        "You are trying to remove null value from SortedLinkedList, which it cannot contain." +
+            "You probably want to filter out nulls from your data or fix some bug.",
         InvalidItemValueException.class,
         runnableRemove
     );
@@ -172,6 +176,56 @@ public class SortedLinkedListTest {
         list.toString()
     );
     assertEquals(3, list.size());
+  }
+
+  @Test
+  public void itShouldNotAllowFindingIndexByNullValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    ThrowingRunnable runnableRemove = () -> list.indexOf(null);
+    assertThrows(
+        "You are trying to search null value in SortedLinkedList, which it cannot contain." +
+            "You probably want to filter out nulls from your data or fix some bug.",
+        InvalidItemValueException.class,
+        runnableRemove
+    );
+  }
+
+  @Test
+  public void itCanFindIndexOfFirstValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    var actualIndex = list.indexOf(10);
+    assertEquals(
+        0,
+        actualIndex
+    );
+  }
+
+  @Test
+  public void itCanFindIndexOfMiddleValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    var actualIndex = list.indexOf(20);
+    assertEquals(
+        1,
+        actualIndex
+    );
+  }
+
+  @Test
+  public void itCanFindIndexOfLastValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    var actualIndex = list.indexOf(30);
+    assertEquals(
+        2,
+        actualIndex
+    );
   }
 
 }

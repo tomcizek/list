@@ -15,7 +15,14 @@ public class InvalidItemValueException extends RuntimeException {
 
   public static InvalidItemValueException becauseRemovingItemValueIsNull() {
     return new InvalidItemValueException(
-        "You are trying to remove null value from SortedLinkedList. " +
+        "You are trying to remove null value from SortedLinkedList, which it cannot contain." +
+            "You probably want to filter out nulls from your data or fix some bug."
+    );
+  }
+
+  public static InvalidItemValueException becauseSearchItemValueIsNull() {
+    return new InvalidItemValueException(
+        "You are trying to search null value in SortedLinkedList, which it cannot contain." +
             "You probably want to filter out nulls from your data or fix some bug."
     );
   }

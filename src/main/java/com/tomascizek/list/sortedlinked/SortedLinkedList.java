@@ -65,7 +65,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
 
   public void remove(T valueToDelete) {
     if (valueToDelete == null) {
-      throw InvalidItemValueException.becauseItemValueIsNull();
+      throw InvalidItemValueException.becauseRemovingItemValueIsNull();
     }
 
     var currentItem = this.firstItem;
@@ -87,6 +87,26 @@ public class SortedLinkedList<T extends Comparable<T>> {
     }
 
     this.size--;
+  }
+
+  public int indexOf(T searchedValue) {
+    if (searchedValue == null) {
+      throw InvalidItemValueException.becauseSearchItemValueIsNull();
+    }
+
+    var currentItem = this.firstItem;
+    int index = 0;
+
+    while (currentItem != null && currentItem.data.compareTo(searchedValue) != 0) {
+      currentItem = currentItem.next;
+      index++;
+    }
+
+    if (currentItem == null) {
+      return -1;
+    }
+
+    return index;
   }
 
   private class ListItem<T extends Comparable<T>> implements Comparable<ListItem<T>> {
