@@ -34,7 +34,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
     
     this.size++;
 
-    ListItem<T> newListItem = new ListItem<>(itemValue);
+    ListItem newListItem = new ListItem(itemValue);
 
     if (this.firstItem == null || this.firstItem.compareTo(newListItem) > 0) {
       newListItem.next = this.firstItem;
@@ -43,7 +43,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
     }
 
     var currentItem = this.firstItem;
-    ListItem<T> previousItem = null;
+    ListItem previousItem = null;
 
     while (currentItem != null && currentItem.compareTo(newListItem) <= 0) {
       previousItem = currentItem;
@@ -79,7 +79,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
     }
 
     var currentItem = this.firstItem;
-    ListItem<T> previousItem = null;
+    ListItem previousItem = null;
 
     while (currentItem != null && currentItem.data.compareTo(valueToDelete) != 0) {
       previousItem = currentItem;
@@ -132,7 +132,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
     }
 
     var currentItem = this.firstItem;
-    ListItem<T> previousItem = null;
+    ListItem previousItem = null;
     int currentIndex = 0;
 
     while (currentIndex != indexToDelete) {
@@ -150,9 +150,10 @@ public class SortedLinkedList<T extends Comparable<T>> {
     this.size--;
   }
 
-  private class ListItem<T extends Comparable<T>> implements Comparable<ListItem<T>> {
+  private class ListItem implements Comparable<ListItem> {
+
     T data;
-    ListItem<T> next;
+    ListItem next;
 
     public ListItem(T insertion) {
       this.data = insertion;
@@ -160,7 +161,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
     }
 
     @Override
-    public int compareTo(ListItem<T> comparedItem) {
+    public int compareTo(ListItem comparedItem) {
       return this.data.compareTo(comparedItem.data);
     }
 
