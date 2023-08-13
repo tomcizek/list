@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 import com.tomascizek.list.sortedlinked.SortedLinkedList;
+import com.tomascizek.list.sortedlinked.exception.InvalidItemValueException;
 import java.util.List;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
@@ -29,7 +30,7 @@ public class SortedLinkedListTest {
     SortedLinkedList<String> list = new SortedLinkedList<>();
     ThrowingRunnable runnableInsert = () -> list.insert(null);
     assertThrows(
-        Exception.class,
+        InvalidItemValueException.class,
         runnableInsert
     );
   }
@@ -40,6 +41,7 @@ public class SortedLinkedListTest {
     list.insert("banana");
     list.insert("apple");
     assertEquals("[apple, banana]", list.toString());
+    assertEquals(2, list.size());
   }
 
   @Test
@@ -49,6 +51,7 @@ public class SortedLinkedListTest {
     list.insert(20);
     list.insert(10);
     assertEquals("[10, 20, 30]", list.toString());
+    assertEquals(3, list.size());
   }
 
   @Test
@@ -82,6 +85,7 @@ public class SortedLinkedListTest {
         "[something1, something2, something3, something4, something5, something6]",
         list.toString()
     );
+    assertEquals(6, list.size());
   }
 
   @Test
@@ -104,6 +108,70 @@ public class SortedLinkedListTest {
         "[10, 20, 30]",
         list.toString()
     );
+  }
+
+  @Test
+  public void itShouldNotAllowRemoveByNullValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    ThrowingRunnable runnableRemove = () -> list.remove(null);
+    assertThrows(
+        InvalidItemValueException.class,
+        runnableRemove
+    );
+  }
+
+  @Test
+  public void itCanRemoveFirstElementByValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    list.remove(10);
+    assertEquals(
+        "[20, 30]",
+        list.toString()
+    );
+    assertEquals(2, list.size());
+  }
+
+  @Test
+  public void itCanRemoveMiddleElementByValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    list.remove(20);
+    assertEquals(
+        "[10, 30]",
+        list.toString()
+    );
+    assertEquals(2, list.size());
+  }
+
+  @Test
+  public void itCanRemoveLastElementByValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    list.remove(30);
+    assertEquals(
+        "[10, 20]",
+        list.toString()
+    );
+    assertEquals(2, list.size());
+  }
+
+  @Test
+  public void itShouldIgnoreRemovingByNonExistingValue() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    list.remove(40);
+    assertEquals(
+        "[10, 20, 30]",
+        list.toString()
+    );
+    assertEquals(3, list.size());
   }
 
 }
