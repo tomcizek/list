@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 import com.tomascizek.list.sortedlinked.SortedLinkedList;
+import java.util.List;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 
@@ -79,6 +80,28 @@ public class SortedLinkedListTest {
     list.insert("something4");
     assertEquals(
         "[something1, something2, something3, something4, something5, something6]",
+        list.toString()
+    );
+  }
+
+  @Test
+  public void itCanBeCreatedFromList() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        List.of(20, 10, 30)
+    );
+    assertEquals(
+        "[10, 20, 30]",
+        list.toString()
+    );
+  }
+
+  @Test
+  public void itCanBeCreatedFromVariadicParameters() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        20, 10, 30
+    );
+    assertEquals(
+        "[10, 20, 30]",
         list.toString()
     );
   }
