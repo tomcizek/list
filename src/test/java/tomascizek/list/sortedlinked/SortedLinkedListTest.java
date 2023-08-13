@@ -303,5 +303,76 @@ public class SortedLinkedListTest {
     );
   }
 
+  @Test
+  public void itCanRemoveFirstElementByIndex() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    list.removeIndex(0);
+    assertEquals(
+        "[20, 30]",
+        list.toString()
+    );
+    assertEquals(2, list.size());
+  }
 
+  @Test
+  public void itCanRemoveMiddleElementByIndex() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    list.removeIndex(1);
+    assertEquals(
+        "[10, 30]",
+        list.toString()
+    );
+    assertEquals(2, list.size());
+  }
+
+  @Test
+  public void itCanRemoveLastElementByIndex() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    list.removeIndex(2);
+    assertEquals(
+        "[10, 20]",
+        list.toString()
+    );
+    assertEquals(2, list.size());
+  }
+
+  @Test
+  public void itShouldThrowErrorWhenRemovingByNonExistingIndex() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    ThrowingRunnable runnableRemove = () -> list.removeIndex(3);
+    InvalidItemValueException exception = assertThrows(
+        InvalidItemValueException.class,
+        runnableRemove
+    );
+    assertEquals(
+        "You are trying to remove element at non existing index '3'." +
+            "You probably want to use contains(...) method before you attempt to delete the item.",
+        exception.getMessage()
+    );
+  }
+
+  @Test
+  public void itShouldThrowErrorWhenRemovingByInvalidIndex() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>(
+        10, 20, 30
+    );
+    ThrowingRunnable runnableRemove = () -> list.removeIndex(-1);
+    InvalidItemValueException exception = assertThrows(
+        InvalidItemValueException.class,
+        runnableRemove
+    );
+    assertEquals(
+        "You are trying to remove element at non existing index '-1'." +
+            "You probably want to use contains(...) method before you attempt to delete the item.",
+        exception.getMessage()
+    );
+  }
 }

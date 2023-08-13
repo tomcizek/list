@@ -34,4 +34,14 @@ public class InvalidItemValueException extends RuntimeException {
             "You probably want to filter out nulls from your data or fix some bug."
     );
   }
+
+  public static InvalidItemValueException becauseIndexDoesNotExist(int indexToDelete) {
+    return new InvalidItemValueException(
+        String.format(
+            "You are trying to remove element at non existing index '%s'." +
+                "You probably want to use contains(...) method before you attempt to delete the item.",
+            indexToDelete
+        )
+    );
+  }
 }
