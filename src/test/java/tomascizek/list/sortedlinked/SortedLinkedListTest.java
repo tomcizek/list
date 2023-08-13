@@ -18,5 +18,14 @@ public class SortedLinkedListTest {
     SortedLinkedList<String> list = new SortedLinkedList<>();
     list.insert("apple");
     assertEquals(1, list.size());
+    assertEquals("[apple]", list.toString());
+  }
+
+  @Test
+  public void itShouldKeepTwoElementsInOrder() {
+    SortedLinkedList<String> list = new SortedLinkedList<>();
+    list.insert("banana");
+    list.insert("apple");
+    assertEquals("[apple, banana]", list.toString());
   }
 }
