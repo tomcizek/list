@@ -1,5 +1,7 @@
 package com.tomascizek.list.sortedlinked;
 
+import com.tomascizek.list.sortedlinked.exception.InvalidItemValueException;
+
 public class SortedLinkedList<T extends Comparable<T>> {
 
   private ListItem firstItem = null;
@@ -9,11 +11,15 @@ public class SortedLinkedList<T extends Comparable<T>> {
     return this.size;
   }
 
-  public void insert(T insertion) {
+  public void insert(T itemValue) {
 
+    if (itemValue == null) {
+      throw InvalidItemValueException.becauseItemValueIsNull();
+    }
+    
     this.size++;
 
-    ListItem<T> newListItem = new ListItem<>(insertion);
+    ListItem<T> newListItem = new ListItem<>(itemValue);
 
     if (this.firstItem == null || this.firstItem.compareTo(newListItem) > 0) {
       newListItem.next = this.firstItem;

@@ -1,9 +1,11 @@
 package tomascizek.list.sortedlinked;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import com.tomascizek.list.sortedlinked.SortedLinkedList;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 
 public class SortedLinkedListTest {
 
@@ -19,6 +21,16 @@ public class SortedLinkedListTest {
     list.insert("apple");
     assertEquals(1, list.size());
     assertEquals("[apple]", list.toString());
+  }
+
+  @Test
+  public void itShouldNOtAllowNullValues() {
+    SortedLinkedList<String> list = new SortedLinkedList<>();
+    ThrowingRunnable runnableInsert = () -> list.insert(null);
+    assertThrows(
+        Exception.class,
+        runnableInsert
+    );
   }
 
   @Test
