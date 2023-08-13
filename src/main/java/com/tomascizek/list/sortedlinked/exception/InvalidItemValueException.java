@@ -12,4 +12,11 @@ public class InvalidItemValueException extends RuntimeException {
             "You probably want to filter out nulls from your data or fix some bug."
     );
   }
+
+  public static InvalidItemValueException becauseRemovingItemValueIsNull() {
+    return new InvalidItemValueException(
+        "You are trying to remove null value from SortedLinkedList. " +
+            "You probably want to filter out nulls from your data or fix some bug."
+    );
+  }
 }
