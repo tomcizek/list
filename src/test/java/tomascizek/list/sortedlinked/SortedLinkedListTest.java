@@ -28,4 +28,47 @@ public class SortedLinkedListTest {
     list.insert("apple");
     assertEquals("[apple, banana]", list.toString());
   }
+
+  @Test
+  public void itShouldInsertAtStartCorrectly() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>();
+    list.insert(30);
+    list.insert(20);
+    list.insert(10);
+    assertEquals("[10, 20, 30]", list.toString());
+  }
+
+  @Test
+  public void itShouldInsertInTheMiddleCorrectly() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>();
+    list.insert(30);
+    list.insert(10);
+    list.insert(20);
+    assertEquals("[10, 20, 30]", list.toString());
+  }
+
+  @Test
+  public void itShouldInsertAtEndCorrectly() {
+    SortedLinkedList<Integer> list = new SortedLinkedList<>();
+    list.insert(20);
+    list.insert(10);
+    list.insert(30);
+    assertEquals("[10, 20, 30]", list.toString());
+  }
+
+  @Test
+  public void itShouldKeepSeveralElementsInOrder() {
+    SortedLinkedList<String> list = new SortedLinkedList<>();
+    list.insert("something5");
+    list.insert("something2");
+    list.insert("something3");
+    list.insert("something1");
+    list.insert("something6");
+    list.insert("something4");
+    assertEquals(
+        "[something1, something2, something3, something4, something5, something6]",
+        list.toString()
+    );
+  }
+
 }

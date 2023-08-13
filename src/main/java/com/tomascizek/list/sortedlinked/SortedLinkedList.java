@@ -15,17 +15,26 @@ public class SortedLinkedList<T extends Comparable<T>> {
 
     ListItem<T> newListItem = new ListItem<>(insertion);
 
-    if(this.firstItem == null) {
+    if (this.firstItem == null || this.firstItem.compareTo(newListItem) > 0) {
+      newListItem.next = this.firstItem;
       this.firstItem = newListItem;
       return;
     }
-    
-    if(this.firstItem.compareTo(newListItem) > 0) {
-      newListItem.next = this.firstItem;
-      this.firstItem = newListItem;
+
+    var currentItem = this.firstItem;
+    ListItem<T> previousItem = null;
+
+    while (currentItem != null && currentItem.compareTo(newListItem) <= 0) {
+      previousItem = currentItem;
+      currentItem = currentItem.next;
+    }
+
+    newListItem.next = currentItem;
+    if (previousItem != null) {
+      previousItem.next = newListItem;
     }
   }
-  
+
   @Override
   public String toString() {
     if (this.firstItem == null) {
