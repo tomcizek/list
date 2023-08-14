@@ -5,7 +5,7 @@ import com.tomascizek.list.sortedlinked.exception.SortedListItemValueException;
 import java.util.Arrays;
 import java.util.List;
 
-public class SortedLinkedList<T extends Comparable<T>> {
+public class SortedLinkedList<T extends Comparable<T>> implements SortedList<T> {
 
   private ListItem firstItem = null;
   private int size = 0;
@@ -22,16 +22,18 @@ public class SortedLinkedList<T extends Comparable<T>> {
   }
 
 
+  @Override
   public int size() {
     return this.size;
   }
 
+  @Override
   public void insert(T itemValue) {
 
     if (itemValue == null) {
       throw SortedListItemValueException.becauseItemValueIsNull();
     }
-    
+
     this.size++;
 
     ListItem newListItem = new ListItem(itemValue);
@@ -73,6 +75,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
     return result.toString();
   }
 
+  @Override
   public void remove(T valueToDelete) {
     if (valueToDelete == null) {
       throw SortedListItemValueException.becauseRemovingItemValueIsNull();
@@ -99,6 +102,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
     this.size--;
   }
 
+  @Override
   public int indexOf(T searchedValue) {
     if (searchedValue == null) {
       throw SortedListItemValueException.becauseSearchItemValueIsNull();
@@ -119,6 +123,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
     return index;
   }
 
+  @Override
   public boolean contains(T searchedValue) {
     if (searchedValue == null) {
       throw SortedListItemValueException.becauseContainsItemValueIsNull();
@@ -126,6 +131,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
     return this.indexOf(searchedValue) != -1;
   }
 
+  @Override
   public void removeIndex(int indexToDelete) {
     if (indexToDelete < 0 || indexToDelete >= this.size) {
       throw SortedListIndexException.becauseIndexToRemoveDoesNotExist(indexToDelete, this.size);
@@ -150,6 +156,7 @@ public class SortedLinkedList<T extends Comparable<T>> {
     this.size--;
   }
 
+  @Override
   public T get(int index) {
     if (index < 0 || index >= this.size) {
       throw SortedListIndexException.becauseIndexToGetDoesNotExist(index, this.size);
